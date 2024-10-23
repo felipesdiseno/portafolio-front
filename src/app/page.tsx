@@ -5,6 +5,7 @@ import About from "@/components/aboutme";
 import Projects from "@/components/projects";
 import Technologies from "@/components/technologies";
 import Contact from "@/components/contact";
+
 export default function Home() {
   const [view, setView] = useState("About");
   const renderView = () => {
