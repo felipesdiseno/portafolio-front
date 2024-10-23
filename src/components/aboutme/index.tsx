@@ -1,16 +1,33 @@
 import React from "react";
+import { personalInformation } from "@/Information/personalInformation";
 
 function About() {
-  const name = "Lorem, ipsum.";
-  const description = "Lorem, ipsum dolor";
-  const text =
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quasi obcaecati ex dolore culpa id eius placeat debitis recusandae, distinctio fuga inventore soluta voluptatem odio, optio dolorem quaerat nemo. Voluptate vero aperiam eligendi sequi odio adipisci nulla. Aspernatur, libero iste ipsum doloribus tenetur eius, voluptate commodi praesentium incidunt repudiandae necessitatibus odio reprehenderit veritatis nam dicta. Quidem similique necessitatibus laudantium quaerat minus magnam sunt illum voluptatibus exercitationem fugit corrupti ipsum beatae, tempora quos quasi nam a ad dolore non? Consectetur officiis, impedit tempore explicabo adipisci quam facilis enim quibusdam ipsum voluptatem suscipit quia, sint ullam ratione sequi repellendus accusamus tenetur necessitatibus libero at! Illo officiis corporis minima vitae maiores, asperiores optio ullam, aperiam error veritatis accusantium quo velit culpa. Recusandae doloribus eius aliquid, voluptatum sint dolore, fuga non, voluptas officia laudantium cum blanditiis! Dolorem iste explicabo vel fugiat, omnis in dolor necessitatibus quia rem asperiores fugit nihil voluptatum repellat quam aliquam?";
+  const { name, lastName, bio, header, img } = personalInformation;
   return (
-    <div className="p-2">
-      <h1 className="text xl font-semibold">Hola mundo soy {name}!</h1>
+    <div className="p-1 overflow-auto ">
+      {/*SECCION SUPERIOR*/}
+      <div className=" flex flex-row gap-2 justify-between">
+        {/** CONTENEDOR DERECHO */}
+        <div className="flex flex-col w-2/3 gap-1 justify-center">
+        <h1 className="text-2xl font-semibold">{name} {lastName}!</h1>
+        <h2 className="text-justify">{header}</h2>
+        </div>
 
-      <h2 className="">{description}</h2>
-      <p className="text-justify text-md mt-4">{text}</p>
+        {/** CONTENEDOR IZQUIERDO */}
+        <div className="flex justify-center items-center max-w-[33.33%] w-40 h-40 rounded-full overflow-hidden border-2 border-red-500 m-auto">
+          <img className=" object-cover w-full h-full " src={img.src} alt="" />
+        </div>
+      
+      </div>
+
+      {/*SECCION INFERIOR*/}
+      <div>
+      <p className="text-justify text-md mt-4">{bio}</p>
+      </div>
+      
+
+      
+      
     </div>
   );
 }

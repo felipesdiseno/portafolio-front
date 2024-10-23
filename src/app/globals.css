@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+
 
 @layer utilities {
   .text-balance {
@@ -15,9 +13,15 @@ body {
 @layer base {
   :root {
     --primary-color: #2ecc71;
-    --secondary-color: #393e46;
-    --background-color: #222831;
+    --contrast-color: #1D2226;
+    --contrast-alt-color:#0D1117;
+    --background-color: #000000;
+    --background-alt-color:#0b100e;
     --text-color: #fcfaee;
+    --debug-color1:green;
+    --debug-color2:blue;
+    --debug-color3:red;
+    --debug-color4:yellow;
   }
 }
 
@@ -26,14 +30,22 @@ body {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply 
+    bg-background
+    text-foreground;
   }
 }
 
+.background {
+  background-color: var(--contrast-color);
+}
+
 body {
+  font-family: Arial, Helvetica, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
 
 ul {
   list-style: none;
@@ -83,3 +95,5 @@ span:hover:after {
   width: 100%;
   transition: 0s;
 }
+
+
