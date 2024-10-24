@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
 
 
 @layer utilities {
@@ -15,7 +17,7 @@
     --primary-color: #2ecc71;
     --contrast-color: #1D2226;
     --contrast-alt-color:#0D1117;
-    --background-color: #000000;
+    --background-color: #010409;
     --background-alt-color:#0b100e;
     --text-color: #fcfaee;
     --debug-color1:green;
@@ -48,8 +50,15 @@
 .animate-carousel {
   animation: carousel 35s linear infinite;
 }
-.background {
+.contrast {
   background-color: var(--contrast-color);
+}
+
+.background {
+  background-color: var(--background-color);
+}
+.icon-color {
+  color: inherit;
 }
 
 body {

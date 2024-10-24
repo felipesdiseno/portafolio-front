@@ -5,6 +5,7 @@ import About from "@/components/aboutme";
 import Projects from "@/components/projects";
 import Technologies from "@/components/technologies";
 import Contact from "@/components/contact";
+import Logo from "@/components/Logo/logo";
 
 export default function Home() {
   const [view, setView] = useState("About");
@@ -23,13 +24,17 @@ export default function Home() {
     }
   };
   return (
-    <div className="flex relative m-auto h-full max-h-[90%] w-screen max-w-[1440px] flex-col mx-12 gap-4 p-2 ">
+    <div className="flex relative m-auto h-full max-h-[90%] w-screen max-w-[1440px] flex-col mx-12 p-2 ">
       {/* <CONTENEDOR SUPERIOR /> */}
-      <div className="background rounded-xl relative w-full h-1/6 border-2 border-none"></div>
+      <div className="background relative w-full h-1/6 border border-white flex flex-row justify-start">
+      <div className="flex w-1/5 h-full bg-red-600"><Logo /></div>
+      <div className="flex w-4/5 h-full"></div>
+      </div>
+   
       {/* <CONTENEDOR INFERIOR /> */}
-      <div className="flex gap-4  h-5/6 w-full ">
+      <div className="flex h-5/6 w-full ">
         {/* <CONTENEDOR IZQUIERDO /> */}
-        <div className="background rounded-xl border-2 border-none font-semibold w-1/5 flex flex-col p-1">
+        <div className="contrast border border-white font-semibold w-1/5 flex flex-col p-1">
           <ul className="flex flex-col">
             <li className="w-fit">
               <button onClick={() => setView("About")} className="mt-2">
@@ -54,7 +59,7 @@ export default function Home() {
           </ul>
         </div>
         {/* <CONTENEDOR DERECHO /> */}
-        <div className="background rounded-xl border-2 border-none w-4/5 flex justify-center ">{renderView()}</div>
+        <div className="background border border-white w-4/5 flex justify-center ">{renderView()}</div>
       </div>
     </div>
   );
