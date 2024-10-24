@@ -7,38 +7,43 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { icons } from "@/Information/technologies";
+// import {
+//   SiReact,
+//   SiNextdotjs,
+//   SiTailwindcss,
+//   SiTypescript,
+//   SiJavascript,
+//   SiNodedotjs,
+//   SiGit,
+//   SiMongodb,
+// } from "react-icons/si";
 
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiTypescript,
-  SiJavascript,
-  SiNodedotjs,
-  SiGit,
-  SiMongodb,
-} from "react-icons/si";
 
-const technologies = [
-  { name: "React", icon: SiReact, color: "text-blue-500" },
-  { name: "Next.js", icon: SiNextdotjs, color: "text-black" },
-  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
-  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
-  { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
-  { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
-  { name: "Git", icon: SiGit, color: "text-red-500" },
-  { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
-];
+// export const icons = [
+//   { name: "React", icon: SiReact, color: "text-blue-500" },
+//   { name: "Next.js", icon: SiNextdotjs, color: "text-black" },
+//   { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
+//   { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
+//   { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+//   { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
+//   { name: "Git", icon: SiGit, color: "text-red-500" },
+//   { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
+// ];
 
-// Duplicate the technologies array to create a seamless loop
-const extendedTechnologies = [
-  ...technologies,
+interface IconsProps {
+  name: string;
+  icon: React.ComponentType<{
+    className?: string;
+    style?: React.CSSProperties;
+  }>;
+  color: string;
+}
 
-  ...technologies,
-  ...technologies,
-];
+const iconList: IconsProps[] = icons;
+const extendedTechnologiesIcons = [...iconList, ...iconList, ...iconList];
 
 export default function TechCarousel() {
   const [api, setApi] = React.useState<any>();
@@ -50,8 +55,7 @@ export default function TechCarousel() {
     if (!api) return;
 
     api.on("select", () => {
-      // If we've scrolled past the original set, jump back to create illusion of infinite loop
-      if (api.selectedScrollSnap() >= technologies.length) {
+      if (api.selectedScrollSnap() >= icons.length) {
         api.scrollTo(0, false);
       }
     });
@@ -69,19 +73,17 @@ export default function TechCarousel() {
       className="w-full overflow-hidden"
       setApi={setApi}
     >
-      <CarouselContent className="py-4 animate-carousel">
-        {extendedTechnologies.map((tech, index) => (
+      <CarouselContent className={`py-4 animate-carousel`}>
+        {extendedTechnologiesIcons.map((tech: IconsProps, index) => (
           <CarouselItem
             key={index}
             className="basis-1/6 pl-4 transition-opacity duration-300 ease-in-out"
           >
-            <Card className="overflow-hidden h-20 flex items-center justify-center text-[#1D2226]">
+            <Card className="overflow-hidden h-20 flex items-center justify-center text-[#74afe0]">
               <CardContent className="flex flex-col items-center justify-center p-2 h-full w-full">
-                <div
-                  className={`flex flex-col items-center justify-center ${tech.color}`}
-                >
-                  <tech.icon className="w-8 h-8 mb-1" />
-                  <p className="text-xs text-center">{tech.name}</p>
+                <div className="flex flex-col items-center justify-center">
+                  <tech.icon className={`w-8 h-8 mb-1 ${tech.color}`} />
+                  <p className={`text-xs text-center ${tech.color}`}>{tech.name}</p>
                 </div>
               </CardContent>
             </Card>

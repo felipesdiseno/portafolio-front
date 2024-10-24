@@ -4,7 +4,7 @@ import { personalInformation } from "@/Information/personalInformation";
 function About() {
   const { name, lastName, bio, header, img } = personalInformation;
   return (
-    <div className="p-1 overflow-auto ">
+    <div className="p-2 overflow-auto ">
       {/*SECCION SUPERIOR*/}
       <div className=" flex flex-row gap-2 justify-between">
         {/** CONTENEDOR DERECHO */}
@@ -15,7 +15,7 @@ function About() {
 
         {/** CONTENEDOR IZQUIERDO */}
         <div className="flex justify-center items-center max-w-[33.33%] w-40 h-40 rounded-full overflow-hidden border-2 border-red-500 m-auto">
-          <img className=" object-cover w-full h-full " src={img.src} alt="" />
+          <img className="object-cover w-full h-full" src={img.src} alt="" />
         </div>
       
       </div>

@@ -9,6 +9,13 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+			fontFamily: {
+				roboto: ["Roboto Condensed", "sans-serif"],
+      oswald: ["Oswald", "sans-serif"],
+      outfit: ["Outfit", "sans-serif"],
+      youngSerif: ["Young Serif", "serif"],
+      manrope: ["Manrope", "sans-serif"],
+			},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
