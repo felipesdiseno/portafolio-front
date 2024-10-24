@@ -1,118 +1,93 @@
-import React, { useState, useEffect } from "react";
+"use client";
 
-interface Technology {
-  name: string;
-  icon: string;
-}
+import * as React from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { useEffect, useState, useRef } from "react";
+import Autoplay from "embla-carousel-autoplay";
 
-interface DualTechCarouselProps {
-  technologies: Technology[];
-}
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiTypescript,
+  SiJavascript,
+  SiNodedotjs,
+  SiGit,
+  SiMongodb,
+} from "react-icons/si";
 
-const DualTechCarousel: React.FC<DualTechCarouselProps> = ({
-  technologies,
-}) => {
-  const [leftIndex, setLeftIndex] = useState(0);
-  const [rightIndex, setRightIndex] = useState(0);
+const technologies = [
+  { name: "React", icon: SiReact, color: "text-blue-500" },
+  { name: "Next.js", icon: SiNextdotjs, color: "text-black" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "text-cyan-400" },
+  { name: "TypeScript", icon: SiTypescript, color: "text-blue-600" },
+  { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+  { name: "Node.js", icon: SiNodedotjs, color: "text-green-600" },
+  { name: "Git", icon: SiGit, color: "text-red-500" },
+  { name: "MongoDB", icon: SiMongodb, color: "text-green-500" },
+];
+
+// Duplicate the technologies array to create a seamless loop
+const extendedTechnologies = [
+  ...technologies,
+
+  ...technologies,
+  ...technologies,
+];
+
+export default function TechCarousel() {
+  const [api, setApi] = React.useState<any>();
+  const autoplay = useRef(
+    Autoplay({ delay: 0, stopOnInteraction: false, stopOnMouseEnter: false })
+  );
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setLeftIndex((prevIndex) => (prevIndex + 1) % technologies.length);
-      setRightIndex((prevIndex) =>
-        prevIndex === 0 ? technologies.length - 1 : prevIndex - 1
-      );
-    }, 3000); // Cambia de tecnología cada 3 segundos
+    if (!api) return;
 
-    return () => clearInterval(timer);
-  }, [technologies.length]);
-
-  const nextLeftSlide = () => {
-    setLeftIndex((prevIndex) => (prevIndex + 1) % technologies.length);
-  };
-
-  const prevLeftSlide = () => {
-    setLeftIndex((prevIndex) =>
-      prevIndex === 0 ? technologies.length - 1 : prevIndex - 1
-    );
-  };
-
-  const nextRightSlide = () => {
-    setRightIndex((prevIndex) =>
-      prevIndex === 0 ? technologies.length - 1 : prevIndex - 1
-    );
-  };
-
-  const prevRightSlide = () => {
-    setRightIndex((prevIndex) => (prevIndex + 1) % technologies.length);
-  };
-
-  const Carousel = ({
-    direction,
-    currentIndex,
-    onNext,
-    onPrev,
-  }: {
-    direction: "left" | "right";
-    currentIndex: number;
-    onNext: () => void;
-    onPrev: () => void;
-  }) => (
-    <div className="relative w-full max-w-xs mx-auto mb-8">
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-300 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {technologies.map((tech, index) => (
-            <div key={index} className="w-full flex-shrink-0">
-              <div className="rounded-lg shadow-md p-6 m-2 flex flex-col items-center justify-center">
-                <span className="text-4xl mb-2">{tech.icon}</span>
-                <span className="text-lg font-semibold">{tech.name}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <button
-        onClick={onPrev}
-        className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        aria-label={`Tecnología anterior (${direction})`}
-      >
-        ◀
-      </button>
-      <button
-        onClick={onNext}
-        className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        aria-label={`Siguiente tecnología (${direction})`}
-      >
-        ▶
-      </button>
-    </div>
-  );
+    api.on("select", () => {
+      // If we've scrolled past the original set, jump back to create illusion of infinite loop
+      if (api.selectedScrollSnap() >= technologies.length) {
+        api.scrollTo(0, false);
+      }
+    });
+  }, [api]);
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4 text-center">
-        Carrusel hacia la derecha
-      </h2>
-      <Carousel
-        direction="left"
-        currentIndex={leftIndex}
-        onNext={nextLeftSlide}
-        onPrev={prevLeftSlide}
-      />
-
-      <h2 className="text-xl font-bold mb-4 text-center">
-        Carrusel hacia la izquierda
-      </h2>
-      <Carousel
-        direction="right"
-        currentIndex={rightIndex}
-        onNext={nextRightSlide}
-        onPrev={prevRightSlide}
-      />
-    </div>
+    <Carousel
+      opts={{
+        align: "start",
+        loop: false,
+        skipSnaps: false,
+        dragFree: true,
+      }}
+      plugins={[autoplay.current]}
+      className="w-full overflow-hidden"
+      setApi={setApi}
+    >
+      <CarouselContent className="py-4 animate-carousel">
+        {extendedTechnologies.map((tech, index) => (
+          <CarouselItem
+            key={index}
+            className="basis-1/6 pl-4 transition-opacity duration-300 ease-in-out"
+          >
+            <Card className="overflow-hidden h-20 flex items-center justify-center text-[#1D2226]">
+              <CardContent className="flex flex-col items-center justify-center p-2 h-full w-full">
+                <div
+                  className={`flex flex-col items-center justify-center ${tech.color}`}
+                >
+                  <tech.icon className="w-8 h-8 mb-1" />
+                  <p className="text-xs text-center">{tech.name}</p>
+                </div>
+              </CardContent>
+            </Card>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
-};
-
-export default DualTechCarousel;
+}

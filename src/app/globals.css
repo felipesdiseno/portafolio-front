@@ -25,6 +25,7 @@
   }
 }
 
+
 @layer base {
   * {
     @apply border-border;
@@ -35,7 +36,18 @@
     text-foreground;
   }
 }
+@keyframes carousel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% / 3 * 8));
+  }
+}
 
+.animate-carousel {
+  animation: carousel 35s linear infinite;
+}
 .background {
   background-color: var(--contrast-color);
 }
